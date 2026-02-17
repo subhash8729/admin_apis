@@ -34,7 +34,13 @@ const app = express();
 app.use(cors({
   origin: "*",
   methods: ["GET","POST","PUT","DELETE","PATCH"],
+<<<<<<< HEAD
 }));
+=======
+  credentials: true
+}))
+app.use(router)
+>>>>>>> e536dcfaf6f3e530935075a07a7310a7a0977d56
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

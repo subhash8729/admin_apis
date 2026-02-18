@@ -8,7 +8,7 @@ export const login_controller = (req,res)=>{
         if(username==="ajit29" && password ==="Ajit@2929"){
             token = generateToken({username, password});
             console.log(token);
-           return res.status(200).json({token,message:"success"})
+           return res.status(200).json({token,username,message:"success"})
         }
         else{
             return res.status(400).json({message:"incorrect credential"});

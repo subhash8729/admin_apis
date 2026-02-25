@@ -1,32 +1,440 @@
+// export let manufacturers = [
+//     { id: 1, name: "Lakme", country: "India", category: "Cosmetics", productsCount: 6 },
+//     { id: 2, name: "Maybelline", country: "USA", category: "Cosmetics", productsCount: 5 },
+//     { id: 3, name: "Sugar", country: "India", category: "Cosmetics", productsCount: 5 },
+//     { id: 4, name: "Nykaa", country: "India", category: "Beauty Retail", productsCount: 5 },
+//     { id: 5, name: "Faces", country: "Canada", category: "Cosmetics", productsCount: 3 },
+//     { id: 6, name: "Swiss Beauty", country: "India", category: "Cosmetics", productsCount: 5 },
+//     { id: 7, name: "Mamaearth", country: "India", category: "Skincare", productsCount: 5 },
+//     { id: 8, name: "Plum", country: "India", category: "Skincare & Fragrance", productsCount: 7 },
+//     { id: 9, name: "Nivea", country: "Germany", category: "Skincare", productsCount: 2 },
+//     { id: 10, name: "Ponds", country: "UK", category: "Skincare", productsCount: 1 },
+//     { id: 11, name: "WOW", country: "India", category: "Skincare & Haircare", productsCount: 4 },
+//     { id: 12, name: "Fogg", country: "India", category: "Fragrance", productsCount: 1 },
+//     { id: 13, name: "Titan", country: "India", category: "Luxury Fragrance", productsCount: 1 },
+//     { id: 14, name: "Bella Vita", country: "India", category: "Fragrance", productsCount: 2 },
+//     { id: 15, name: "Engage", country: "India", category: "Fragrance", productsCount: 2 },
+//     { id: 16, name: "Loreal", country: "France", category: "Haircare", productsCount: 1 },
+//     { id: 17, name: "Tresemme", country: "USA", category: "Haircare", productsCount: 1 },
+//     { id: 18, name: "Streax", country: "India", category: "Haircare", productsCount: 1 },
+//     { id: 19, name: "Vaseline", country: "USA", category: "Body Care", productsCount: 1 },
+//     { id: 20, name: "MCaffeine", country: "India", category: "Body Care", productsCount: 2 },
+//     { id: 21, name: "The Body Shop", country: "UK", category: "Luxury Skincare", productsCount: 1 },
+//     { id: 22, name: "Vega", country: "India", category: "Beauty Tools", productsCount: 2 },
+//     { id: 23, name: "Philips", country: "Netherlands", category: "Grooming Electronics", productsCount: 1 },
+//     { id: 24, name: "Cetaphil", country: "USA", category: "Dermatology", productsCount: 1 },
+//     { id: 25, name: "Neutrogena", country: "USA", category: "Dermatology", productsCount: 1 },
+//     { id: 26, name: "Derma Co", country: "India", category: "Dermatology", productsCount: 1 },
+//     { id: 27, name: "Dyson", country: "UK", category: "Hair Tech", productsCount: 1 }
+// ]
+
 export let manufacturers = [
-    { id: 1, name: "Lakme", country: "India", category: "Cosmetics", productsCount: 6 },
-    { id: 2, name: "Maybelline", country: "USA", category: "Cosmetics", productsCount: 5 },
-    { id: 3, name: "Sugar", country: "India", category: "Cosmetics", productsCount: 5 },
-    { id: 4, name: "Nykaa", country: "India", category: "Beauty Retail", productsCount: 5 },
-    { id: 5, name: "Faces", country: "Canada", category: "Cosmetics", productsCount: 3 },
-    { id: 6, name: "Swiss Beauty", country: "India", category: "Cosmetics", productsCount: 5 },
-    { id: 7, name: "Mamaearth", country: "India", category: "Skincare", productsCount: 5 },
-    { id: 8, name: "Plum", country: "India", category: "Skincare & Fragrance", productsCount: 7 },
-    { id: 9, name: "Nivea", country: "Germany", category: "Skincare", productsCount: 2 },
-    { id: 10, name: "Ponds", country: "UK", category: "Skincare", productsCount: 1 },
-    { id: 11, name: "WOW", country: "India", category: "Skincare & Haircare", productsCount: 4 },
-    { id: 12, name: "Fogg", country: "India", category: "Fragrance", productsCount: 1 },
-    { id: 13, name: "Titan", country: "India", category: "Luxury Fragrance", productsCount: 1 },
-    { id: 14, name: "Bella Vita", country: "India", category: "Fragrance", productsCount: 2 },
-    { id: 15, name: "Engage", country: "India", category: "Fragrance", productsCount: 2 },
-    { id: 16, name: "Loreal", country: "France", category: "Haircare", productsCount: 1 },
-    { id: 17, name: "Tresemme", country: "USA", category: "Haircare", productsCount: 1 },
-    { id: 18, name: "Streax", country: "India", category: "Haircare", productsCount: 1 },
-    { id: 19, name: "Vaseline", country: "USA", category: "Body Care", productsCount: 1 },
-    { id: 20, name: "MCaffeine", country: "India", category: "Body Care", productsCount: 2 },
-    { id: 21, name: "The Body Shop", country: "UK", category: "Luxury Skincare", productsCount: 1 },
-    { id: 22, name: "Vega", country: "India", category: "Beauty Tools", productsCount: 2 },
-    { id: 23, name: "Philips", country: "Netherlands", category: "Grooming Electronics", productsCount: 1 },
-    { id: 24, name: "Cetaphil", country: "USA", category: "Dermatology", productsCount: 1 },
-    { id: 25, name: "Neutrogena", country: "USA", category: "Dermatology", productsCount: 1 },
-    { id: 26, name: "Derma Co", country: "India", category: "Dermatology", productsCount: 1 },
-    { id: 27, name: "Dyson", country: "UK", category: "Hair Tech", productsCount: 1 }
-]
+    {
+        id: 1,
+        name: "Lakme",
+        country: "India",
+        category: "Cosmetics",
+        productsCount: 6,
+        contact: {
+            personName: "Ritika Sharma",
+            position: "Sales Manager",
+            since: "2022-04-15",
+            contactDate: "2025-01-10",
+            phone: "+91 98765 43210",
+            email: "ritika.lakme@example.com"
+        }
+    },
+    {
+        id: 2,
+        name: "Maybelline",
+        country: "USA",
+        category: "Cosmetics",
+        productsCount: 5,
+        contact: {
+            personName: "John Miller",
+            position: "Regional Director",
+            since: "2021-08-01",
+            contactDate: "2025-01-18",
+            phone: "+1 202 555 0147",
+            email: "john.maybelline@example.com"
+        }
+    },
+    {
+        id: 3,
+        name: "Sugar",
+        country: "India",
+        category: "Cosmetics",
+        productsCount: 5,
+        contact: {
+            personName: "Anjali Mehta",
+            position: "Brand Manager",
+            since: "2023-02-10",
+            contactDate: "2025-01-25",
+            phone: "+91 91234 56789",
+            email: "anjali.sugar@example.com"
+        }
+    },
+    {
+        id: 4,
+        name: "Nykaa",
+        country: "India",
+        category: "Beauty Retail",
+        productsCount: 5,
+        contact: {
+            personName: "Priya Kapoor",
+            position: "Partnership Lead",
+            since: "2020-11-20",
+            contactDate: "2025-01-12",
+            phone: "+91 90123 45678",
+            email: "priya.nykaa@example.com"
+        }
+    },
+    {
+        id: 5,
+        name: "Faces",
+        country: "Canada",
+        category: "Cosmetics",
+        productsCount: 3,
+        contact: {
+            personName: "Emily Clark",
+            position: "Export Manager",
+            since: "2019-06-05",
+            contactDate: "2025-01-15",
+            phone: "+1 416 555 0198",
+            email: "emily.faces@example.com"
+        }
+    },
+    {
+        id: 6,
+        name: "Swiss Beauty",
+        country: "India",
+        category: "Cosmetics",
+        productsCount: 5,
+        contact: {
+            personName: "Rahul Verma",
+            position: "Marketing Head",
+            since: "2021-03-18",
+            contactDate: "2025-01-09",
+            phone: "+91 99887 66554",
+            email: "rahul.swiss@example.com"
+        }
+    },
+    {
+        id: 7,
+        name: "Mamaearth",
+        country: "India",
+        category: "Skincare",
+        productsCount: 5,
+        contact: {
+            personName: "Sneha Gupta",
+            position: "Brand Manager",
+            since: "2022-07-01",
+            contactDate: "2025-01-14",
+            phone: "+91 90909 80808",
+            email: "sneha.mamaearth@example.com"
+        }
+    },
+    {
+        id: 8,
+        name: "Plum",
+        country: "India",
+        category: "Skincare & Fragrance",
+        productsCount: 7,
+        contact: {
+            personName: "Karan Shah",
+            position: "Business Development Manager",
+            since: "2021-09-12",
+            contactDate: "2025-01-22",
+            phone: "+91 93456 78901",
+            email: "karan.plum@example.com"
+        }
+    },
+    {
+        id: 9,
+        name: "Nivea",
+        country: "Germany",
+        category: "Skincare",
+        productsCount: 2,
+        contact: {
+            personName: "Lukas Weber",
+            position: "Regional Sales Head",
+            since: "2018-05-14",
+            contactDate: "2025-01-16",
+            phone: "+49 1512 3456789",
+            email: "lukas.nivea@example.com"
+        }
+    },
+    {
+        id: 10,
+        name: "Ponds",
+        country: "UK",
+        category: "Skincare",
+        productsCount: 1,
+        contact: {
+            personName: "Oliver Brown",
+            position: "Distribution Manager",
+            since: "2019-01-10",
+            contactDate: "2025-01-19",
+            phone: "+44 7700 900123",
+            email: "oliver.ponds@example.com"
+        }
+    },
+    {
+        id: 11,
+        name: "WOW",
+        country: "India",
+        category: "Skincare & Haircare",
+        productsCount: 4,
+        contact: {
+            personName: "Amit Khanna",
+            position: "Operations Manager",
+            since: "2020-02-25",
+            contactDate: "2025-01-20",
+            phone: "+91 87654 32109",
+            email: "amit.wow@example.com"
+        }
+    },
+    {
+        id: 12,
+        name: "Fogg",
+        country: "India",
+        category: "Fragrance",
+        productsCount: 1,
+        contact: {
+            personName: "Neha Saini",
+            position: "Brand Executive",
+            since: "2023-01-05",
+            contactDate: "2025-01-08",
+            phone: "+91 98700 11223",
+            email: "neha.fogg@example.com"
+        }
+    },
+    {
+        id: 13,
+        name: "Titan",
+        country: "India",
+        category: "Luxury Fragrance",
+        productsCount: 1,
+        contact: {
+            personName: "Rohit Iyer",
+            position: "Luxury Segment Lead",
+            since: "2021-12-01",
+            contactDate: "2025-01-11",
+            phone: "+91 98111 22334",
+            email: "rohit.titan@example.com"
+        }
+    },
+    {
+        id: 14,
+        name: "Bella Vita",
+        country: "India",
+        category: "Fragrance",
+        productsCount: 2,
+        contact: {
+            personName: "Megha Jain",
+            position: "Sales Executive",
+            since: "2022-03-22",
+            contactDate: "2025-01-13",
+            phone: "+91 97000 44556",
+            email: "megha.bellavita@example.com"
+        }
+    },
+    {
+        id: 15,
+        name: "Engage",
+        country: "India",
+        category: "Fragrance",
+        productsCount: 2,
+        contact: {
+            personName: "Saurabh Singh",
+            position: "Area Manager",
+            since: "2020-10-18",
+            contactDate: "2025-01-17",
+            phone: "+91 96543 21098",
+            email: "saurabh.engage@example.com"
+        }
+    },
+    {
+        id: 16,
+        name: "Loreal",
+        country: "France",
+        category: "Haircare",
+        productsCount: 1,
+        contact: {
+            personName: "Camille Dupont",
+            position: "Global Partnerships Manager",
+            since: "2017-09-01",
+            contactDate: "2025-01-21",
+            phone: "+33 612 345 678",
+            email: "camille.loreal@example.com"
+        }
+    },
+    {
+        id: 17,
+        name: "Tresemme",
+        country: "USA",
+        category: "Haircare",
+        productsCount: 1,
+        contact: {
+            personName: "David Carter",
+            position: "Sales Coordinator",
+            since: "2019-04-09",
+            contactDate: "2025-01-23",
+            phone: "+1 303 555 0178",
+            email: "david.tresemme@example.com"
+        }
+    },
+    {
+        id: 18,
+        name: "Streax",
+        country: "India",
+        category: "Haircare",
+        productsCount: 1,
+        contact: {
+            personName: "Pooja Nair",
+            position: "Brand Manager",
+            since: "2022-06-15",
+            contactDate: "2025-01-24",
+            phone: "+91 95432 10987",
+            email: "pooja.streax@example.com"
+        }
+    },
+    {
+        id: 19,
+        name: "Vaseline",
+        country: "USA",
+        category: "Body Care",
+        productsCount: 1,
+        contact: {
+            personName: "Michael Scott",
+            position: "Distribution Head",
+            since: "2016-08-12",
+            contactDate: "2025-01-26",
+            phone: "+1 212 555 0145",
+            email: "michael.vaseline@example.com"
+        }
+    },
+    {
+        id: 20,
+        name: "MCaffeine",
+        country: "India",
+        category: "Body Care",
+        productsCount: 2,
+        contact: {
+            personName: "Riya Malhotra",
+            position: "Marketing Manager",
+            since: "2021-11-30",
+            contactDate: "2025-01-27",
+            phone: "+91 91234 99887",
+            email: "riya.mcaffeine@example.com"
+        }
+    },
+    {
+        id: 21,
+        name: "The Body Shop",
+        country: "UK",
+        category: "Luxury Skincare",
+        productsCount: 1,
+        contact: {
+            personName: "Charlotte Evans",
+            position: "Luxury Segment Manager",
+            since: "2018-03-03",
+            contactDate: "2025-01-28",
+            phone: "+44 7711 223344",
+            email: "charlotte.bodyshop@example.com"
+        }
+    },
+    {
+        id: 22,
+        name: "Vega",
+        country: "India",
+        category: "Beauty Tools",
+        productsCount: 2,
+        contact: {
+            personName: "Manish Arora",
+            position: "Product Manager",
+            since: "2022-01-17",
+            contactDate: "2025-01-29",
+            phone: "+91 98760 12345",
+            email: "manish.vega@example.com"
+        }
+    },
+    {
+        id: 23,
+        name: "Philips",
+        country: "Netherlands",
+        category: "Grooming Electronics",
+        productsCount: 1,
+        contact: {
+            personName: "Sophie Van Dijk",
+            position: "Regional Sales Lead",
+            since: "2019-07-21",
+            contactDate: "2025-01-30",
+            phone: "+31 612 345678",
+            email: "sophie.philips@example.com"
+        }
+    },
+    {
+        id: 24,
+        name: "Cetaphil",
+        country: "USA",
+        category: "Dermatology",
+        productsCount: 1,
+        contact: {
+            personName: "Amanda Lewis",
+            position: "Medical Liaison",
+            since: "2020-09-14",
+            contactDate: "2025-02-01",
+            phone: "+1 415 555 0132",
+            email: "amanda.cetaphil@example.com"
+        }
+    },
+    {
+        id: 25,
+        name: "Neutrogena",
+        country: "USA",
+        category: "Dermatology",
+        productsCount: 1,
+        contact: {
+            personName: "Robert Hall",
+            position: "Dermatology Sales Manager",
+            since: "2018-02-11",
+            contactDate: "2025-02-02",
+            phone: "+1 617 555 0199",
+            email: "robert.neutrogena@example.com"
+        }
+    },
+    {
+        id: 26,
+        name: "Derma Co",
+        country: "India",
+        category: "Dermatology",
+        productsCount: 1,
+        contact: {
+            personName: "Ishita Roy",
+            position: "Brand Executive",
+            since: "2023-05-05",
+            contactDate: "2025-02-03",
+            phone: "+91 90000 55667",
+            email: "ishita.dermaco@example.com"
+        }
+    },
+    {
+        id: 27,
+        name: "Dyson",
+        country: "UK",
+        category: "Hair Tech",
+        productsCount: 1,
+        contact: {
+            personName: "James Wilson",
+            position: "Technology Partnerships Lead",
+            since: "2019-12-01",
+            contactDate: "2025-02-04",
+            phone: "+44 7788 990011",
+            email: "james.dyson@example.com"
+        }
+    }
+];
 
 
 export let femaleBeautyProducts = [
@@ -420,7 +828,7 @@ export const delete_manufacturer = (idToDelete) => {
 }
 
 export const add_product = (product, res) => {
-    
+
     if (!product || Array.isArray(product) || typeof product !== "object") {
         return res.status(400).json({ message: "Product must be an object" })
     }

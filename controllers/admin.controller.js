@@ -1,4 +1,4 @@
-import { add_product, delete_manufacturer, delete_product, femaleBeautyProducts, manufacturers } from "../functions/data.js";
+import { add_product, deals, delete_manufacturer, delete_product, femaleBeautyProducts, manufacturers } from "../functions/data.js";
 import { generateToken, verifyToken } from "../functions/functions.js";
 
 export const login_controller = (req,res)=>{
@@ -35,7 +35,7 @@ export const get_products_controller = (req,res)=>{
 export const get_manufacturers_details = (req,res)=>{
     try {
         const token = req.body?.token;
-        if(!token) res.status(400).json({message:"token not found"})
+        if(!token) return res.status(400).json({message:"token not found"})
         const result = verifyToken(token);
         if(!result) return res.status(400).json({message:"incorrect token"})
 
@@ -101,5 +101,18 @@ export const add_product_controller = (req,res) =>{
     } catch (error) {
         console.log("error",error);
         return res.send("server issue")
+    }
+}
+
+export const get_deals_controller = (req,res)=>{
+    try {
+        const token = req.body?.token;
+        if(!token) return res.status(400).json({message:"token not found"})
+        const result = verifyToken(token);
+        if(!result) return res.status(400).json({message:"incorrect token"})
+
+        return res.status(200).json(deals)
+    } catch (error) {
+        return res.status(400).json({message:"Server Error"})
     }
 }

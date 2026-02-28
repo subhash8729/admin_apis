@@ -75,7 +75,6 @@ export const delete_manufacturer_controller = (req,res) =>{
         if(!result) return res.status(400).json({message:"incorrect token"})
         idToDelete = Number(idToDelete)
         delete_manufacturer(idToDelete);
-        // console.log(femaleBeautyProducts)
         return res.send(manufacturers);
 
 

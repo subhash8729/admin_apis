@@ -59,7 +59,7 @@ export const delete_products_controller = (req, res) => {
 
     } catch (error) {
         console.log("error", error)
-        return res.send("server issue")
+        return res.status(500).json("server issue")
     }
 }
 

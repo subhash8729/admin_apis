@@ -1,3 +1,5 @@
+import fs from "fs";
+
 // export let manufacturers = [
 //     { id: 1, name: "Lakme", country: "India", category: "Cosmetics", productsCount: 6 },
 //     { id: 2, name: "Maybelline", country: "USA", category: "Cosmetics", productsCount: 5 },
@@ -862,15 +864,6 @@ export const deals = [
     { id: 40, title: "Organic Beauty Export", companyName: "Forest Essentials", value: 920000, status: "Active", stage: "Negotiation", probability: 91, startDate: "2025-01-26", expectedCloseDate: "2025-04-22", createdAt: "2025-01-16" }
 ];
 
-export const delete_product = (idToDelete) => {
-    femaleBeautyProducts = femaleBeautyProducts.filter(item => item.id !== idToDelete);
-    return femaleBeautyProducts;
-}
-
-export const delete_manufacturer = (idToDelete) => {
-    manufacturers = manufacturers.filter(item => item.id !== idToDelete);
-    return manufacturers;
-}
 
 export const add_product = (product, res) => {
     if (!product || Array.isArray(product) || typeof product !== "object") {

@@ -54,10 +54,8 @@ export const delete_products_controller = (req, res) => {
         if (!token) return res.status(400).json({ message: "token not found" })
         const result = verifyToken(token);
         if (!result) return res.status(400).json({ message: "incorrect token" })
-        idToDelete = Number(idToDelete)
-        delete_product(idToDelete);
-        const data = JSON.parse(fs.readFileSync("femaleBeautyProducts.json", "utf-8"));
-        return res.status(200).json(data);
+        delete_product(Number(idToDelete));
+        return res.status(200).json("delete success");
 
     } catch (error) {
         console.log("error", error)

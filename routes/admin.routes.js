@@ -4,10 +4,14 @@ const router = express.Router();
 
 router.post("/login", login_controller);
 router.patch("/get-products",get_products_controller);
+
+// ! add a api for add new product and comment ok ...
 router.patch("/get-manufacturers", get_manufacturers_details);
 router.delete("/delete-product", delete_products_controller)
 router.delete("/delete-manufacturer", delete_manufacturer_controller)
 router.post("/add-product", add_product_controller)
 router.post("/get-deals", get_deals_controller)
+
+// ! add a api for add new deal ok ...
 
 export default router;

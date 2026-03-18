@@ -59,7 +59,9 @@ export const delete_products_controller = (req, res) => {
         res.status(200).json({ success: true, message: "Delete success" });
 
     } catch (error) {
-        console.log("error", error)
+        console.log("🔥 ERROR FULL:", error);
+console.log("🔥 ERROR MESSAGE:", error.message);
+console.log("🔥 ERROR STACK:", error.stack);
         // return res.status(500).json("server issue")
         res.status(500).json({ success: false, message: "Server issue" });
     }

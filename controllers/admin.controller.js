@@ -51,15 +51,17 @@ export const delete_products_controller = (req, res) => {
         const token = req.body?.token;
         let idToDelete = req.body?.item_id;
         if (!idToDelete) return res.status(400).json({ message: "no deleting item id is provided in body" })
-        if (!token) return res.status(400).json({ message: "token not found" })
+        if (!token) return res.status(401).json({ message: "token not found" })
         const result = verifyToken(token);
-        if (!result) return res.status(400).json({ message: "incorrect token" })
-        delete_product(Number(idToDelete));
-        return res.status(200).json("delete success");
+        if (!result) return res.status(403).json({ message: "incorrect token" })
+        delete_product(idToDelete);
+        // return res.status(200).json("delete success");
+        res.status(200).json({ success: true, message: "Delete success" });
 
     } catch (error) {
         console.log("error", error)
-        return res.status(500).json("server issue")
+        // return res.status(500).json("server issue")
+        res.status(500).json({ success: false, message: "Server issue" });
     }
 }
 

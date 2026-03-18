@@ -50,6 +50,8 @@ export const delete_products_controller = (req, res) => {
     try {
         const token = req.body?.token;
         let idToDelete = req.body?.item_id;
+        console.log("👉 ID:", idToDelete);
+        console.log("👉 Token:", token);
         if (!idToDelete) return res.status(400).json({ message: "no deleting item id is provided in body" })
         if (!token) return res.status(401).json({ message: "token not found" })
         const result = verifyToken(token);
@@ -60,8 +62,8 @@ export const delete_products_controller = (req, res) => {
 
     } catch (error) {
         console.log("🔥 ERROR FULL:", error);
-console.log("🔥 ERROR MESSAGE:", error.message);
-console.log("🔥 ERROR STACK:", error.stack);
+        console.log("🔥 ERROR MESSAGE:", error.message);
+        console.log("🔥 ERROR STACK:", error.stack);
         // return res.status(500).json("server issue")
         res.status(500).json({ success: false, message: "Server issue" });
     }
@@ -95,7 +97,7 @@ export const add_product_controller = (req, res) => {
         const result = verifyToken(token);
         if (!result) return res.status(400).json({ message: "incorrect token" })
         add_product(product, res);
-        const data = JSON.parse(fs.readFileSync("femaleBeautyProducts.json","utf-8"))
+        const data = JSON.parse(fs.readFileSync("femaleBeautyProducts.json", "utf-8"))
         return res.status(200).json(data);
 
     } catch (error) {

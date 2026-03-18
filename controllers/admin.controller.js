@@ -14,8 +14,13 @@ export const login_controller = (req, res) => {
         else {
             return res.status(400).json({ message: "incorrect credential" });
         }
-    } catch (error) {
-        return res.send("error")
+      } catch (error) {
+        console.log("🔥 LOGIN ERROR:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        });
     }
 }
 
@@ -48,10 +53,9 @@ export const get_manufacturers_details = (req, res) => {
 
 export const delete_products_controller = (req, res) => {
     try {
+
         const token = req.body?.token;
         let idToDelete = req.body?.item_id;
-        console.log("👉 ID:", idToDelete);
-        console.log("👉 Token:", token);
         if (!idToDelete) return res.status(400).json({ message: "no deleting item id is provided in body" })
         if (!token) return res.status(401).json({ message: "token not found" })
         const result = verifyToken(token);
@@ -61,30 +65,43 @@ export const delete_products_controller = (req, res) => {
         res.status(200).json({ success: true, message: "Delete success" });
 
     } catch (error) {
-        console.log("🔥 ERROR FULL:", error);
-        console.log("🔥 ERROR MESSAGE:", error.message);
-        console.log("🔥 ERROR STACK:", error.stack);
         // return res.status(500).json("server issue")
         res.status(500).json({ success: false, message: "Server issue" });
     }
 }
 
 
+
 export const delete_manufacturer_controller = (req, res) => {
     try {
+
+    console.log("👉 BODY:", req.body);
+
         const token = req.body?.token;
         let idToDelete = req.body?.item_id;
-        if (!idToDelete) return res.status(400).josn({ message: "no deleting item id is provided in body" })
-        if (!token) return res.status(400).json({ message: "token not found" })
+        console.log(token,idToDelete);
+        
+        if (!idToDelete) {
+            return res.status(400).json({ message: "no deleting item id is provided in body" })
+        }
+        if (!token) {
+            return res.status(400).json({ message: "token not found" })
+        }
         const result = verifyToken(token);
-        if (!result) return res.status(400).json({ message: "incorrect token" })
-        delete_manufacturer(Number(idToDelete));
+        if (!result) {
+            return res.status(400).json({ message: "incorrect token" })
+        }
+        delete_manufacturer(idToDelete);
         const data = JSON.parse(fs.readFileSync("manufacturers.json", "utf-8"));
         return res.send(data);
 
     } catch (error) {
         console.log("error", error)
-        return res.send("server issue")
+        // return res.send("server issue")
+        return res.status(500).json({
+            success: false,
+            message: "Server issue"
+        });
     }
 }
 

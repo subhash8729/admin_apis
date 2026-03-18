@@ -13,7 +13,12 @@ app.use(cors({
   methods: ["GET","POST","PUT","DELETE","PATCH"],
   credentials: true
 }));
-
+app.use((req, res, next) => {
+  console.log("👉 Request aayi:", req.method, req.url);
+  next();
+});
 app.use("/",router);
 
-app.listen(3000);
+app.listen(3000, () => {
+  console.log("🚀 Server running on http://localhost:3000");
+});

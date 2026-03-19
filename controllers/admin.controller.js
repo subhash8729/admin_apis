@@ -154,6 +154,7 @@ export const add_deals_controller = async (req, res) => {
         await deals_collection.insertOne(deal)
         return res.status(200).json({
             success: true,
+            message:"Insertion success"
         })
     } catch (error) {
         console.log("error in add-deals controller", error)

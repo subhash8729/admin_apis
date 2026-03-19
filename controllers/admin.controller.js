@@ -166,9 +166,9 @@ export const add_deals_controller = async (req, res) => {
 
 export const delete_deal_controller = async (req, res) => {
     try {
-        const { idToDelete } = req.body;
+        const { id } = req.body;
 
-        const result = await deals_collection.deleteOne({id:idToDelete})
+        const result = await deals_collection.deleteOne({id})
 
         if(result.deletedCount === 0) return res.status(400).json({
             success: false,

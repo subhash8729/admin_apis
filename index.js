@@ -1,10 +1,10 @@
 import express, { urlencoded } from "express"
-import router from "./routes/admin.routes.js";
 import cors from "cors"
-import { config } from "dotenv";
+import router from "./routes/admin.routes.js";
 import cookieParser from "cookie-parser";
-config();
+import { config } from "dotenv";
 
+config();
 const app = express();
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))

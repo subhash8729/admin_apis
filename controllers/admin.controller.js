@@ -149,7 +149,7 @@ export const get_deals_controller = async (req, res) => {
 export const add_deals_controller = async (req, res) => {
     try {
         const { deal } = req.body;
-        if (!product || typeof deal !== "object" || Array.isArray(deal)) return res.status(400).json({ message: "adding deal type must be an object" })
+        if (!deal || typeof deal !== "object" || Array.isArray(deal)) return res.status(400).json({ message: "adding deal type must be an object" })
 
         await deals_collection.insertOne(deal)
         return res.status(200).json({

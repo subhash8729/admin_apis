@@ -14,5 +14,5 @@ router.post("/add-product", verifyJWT, add_product_controller)
 router.get("/get-deals", verifyJWT, get_deals_controller)
 router.post("/add-deal", verifyJWT, add_deals_controller)
 router.delete("/delete-deal", verifyJWT, delete_deal_controller)
-
+//comment to start redeploy on vercel
 export default router;

@@ -1,11 +1,12 @@
-import { add_product, delete_manufacturer, delete_product, generateToken, verifyToken } from "../functions/functions.js";
-import deals from "../deals.json" with { type: "json" }
-import fs from "fs"
+import { generateToken } from "../functions/functions.js";
+
 import { database } from "../functions/db.js";
 
 const users = database.collection('users')
 const manufacturers = database.collection('manufacturers')
-const products_collection = database.collection('products')
+const products_collection = database.collection('products');
+const deals_collection = database.collection('deals');
+
 export const login_controller = async (req, res) => {
     try {
         const { username, password } = req.body;
@@ -85,7 +86,7 @@ export const delete_products_controller = async (req, res) => {
 
 
 
-export const delete_manufacturer_controller = (req, res) => {
+export const delete_manufacturer_controller =async (req, res) => {
     try {
 
 
@@ -94,15 +95,18 @@ export const delete_manufacturer_controller = (req, res) => {
         if (!idToDelete) {
             return res.status(400).json({ message: "no deleting item id is provided in body" })
         }
-        delete_manufacturer(idToDelete);
-        const data = JSON.parse(fs.readFileSync("manufacturers.json", "utf-8"));
-        return res.send(data);
+        const result =  await manufacturers.deleteOne({id:idToDelete})
+        if(result.deletedCount ===0 ) return res.status(400).json({
+            success:false,
+            message:"the provided id does not exists in database"
+        })
+        return res.status(200).json({success:true, message:"deletion success"});
 
     } catch (error) {
-        console.log("error", error)
+       
         return res.status(500).json({
             success: false,
-            message: "Server issue"
+            message: error.message
         });
     }
 }
@@ -126,15 +130,18 @@ export const add_product_controller = async (req, res) => {
     }
 }
 
-export const get_deals_controller = (req, res) => {
+export const get_deals_controller = async(req, res) => {
     try {
-        const token = req.body?.token;
-        if (!token) return res.status(400).json({ message: "token not found" })
-        const result = verifyToken(token);
-        if (!result) return res.status(400).json({ message: "incorrect token" })
-        const data = JSON.parse(fs.readFileSync("deals.json", "utf-8"));
-        return res.status(200).json(data)
+        const data = await deals_collection.find().toArray();
+        return res.status(200).json({
+            success:true,
+            data
+        })
     } catch (error) {
-        return res.status(400).json({ message: "Server Error" })
+        console.log("error in get-deals controller", error)
+        return res.status(400).json({
+            success:false,
+            message:error.message
+        })
     }
 }

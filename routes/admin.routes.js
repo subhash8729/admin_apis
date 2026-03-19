@@ -12,7 +12,7 @@ router.post("/add-product", verifyJWT, add_product_controller);
 router.delete("/delete-product", verifyJWT, delete_products_controller)
 router.delete("/delete-manufacturer", verifyJWT, delete_manufacturer_controller)
 router.post("/add-product", verifyJWT, add_product_controller)
-router.post("/get-deals", verifyJWT, get_deals_controller)
+router.get("/get-deals", verifyJWT, get_deals_controller)
 
 // ! add a api for add new deal ok ...
 

@@ -13,6 +13,6 @@ router.delete("/delete-manufacturer", verifyJWT, delete_manufacturer_controller)
 router.post("/add-product", verifyJWT, add_product_controller)
 router.get("/get-deals", verifyJWT, get_deals_controller)
 router.post("/add-deals", verifyJWT, add_deals_controller)
-router.post("/delete-deal", verifyJWT, delete_deal_controller)
+router.delete("/delete-deal", verifyJWT, delete_deal_controller)
 
 export default router;

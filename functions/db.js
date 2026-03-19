@@ -1,20 +1,9 @@
 import { MongoClient } from "mongodb";
 
-async function runGetStarted() {
-  // Replace the uri string with your connection string
-  const uri = 'mongodb+srv://subhashdhaka8729:2iNzgM9HYt0NOigX@subhash.52lifjh.mongodb.net/?appName=admin_api';
-  const client = new MongoClient(uri);
 
-  try {
-    const database = client.db('sample_mflix');
-    const movies = database.collection('movies');
+const uri = 'mongodb+srv://subhashdhaka8729:RM3ODYt1PqKUJcpx@subhash.52lifjh.mongodb.net/?appName=admin_api';
+const client = new MongoClient(uri);
 
-    // Queries for a movie that has a title value of 'Back to the Future'
-    const query = { title: 'Back to the Future' };
-    const movie = await movies.findOne(query);
-    console.log(movie);
-  } finally {
-    await client.close();
-  }
-}
-runGetStarted().catch(console.dir);
+await client.connect();
+
+export const database = client.db('admin_api_database');

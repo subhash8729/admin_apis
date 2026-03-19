@@ -10,17 +10,17 @@ export const generateToken = (payload)=>{
     return token;
 }
 
-export const verifyToken = (token) =>{
+export const verifyToken = (token, res) =>{
     try {
-        jwt.verify(token,process.env.JWT_SECRET)
-        return true
+        
+        const payload = jwt.verify(token,process.env.JWT_SECRET)
+        if(!payload) return res.status(400).json({message:"Unathorized token or token not provided"})
     } catch (error) {
-        return false
+        return res.status(400).json({message:"Unathorized token or token not provided"})
     }
 };
 export const delete_product = (id)=>{
-   const filtered =  JSON.parse(fs.readFileSync("femaleBeautyProducts.json","utf-8")).filter(value => value.id !== id)
-   fs.writeFileSync("femaleBeautyProducts.json",JSON.stringify(filtered));
+   
 }
 
 export const delete_manufacturer = (id)=>{

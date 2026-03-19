@@ -2,6 +2,7 @@ import express, { urlencoded } from "express"
 import router from "./routes/admin.routes.js";
 import cors from "cors"
 import { config } from "dotenv";
+import cookieParser from "cookie-parser";
 config();
 
 const app = express();
@@ -17,6 +18,7 @@ app.use((req, res, next) => {
   console.log("👉 Request aayi:", req.method, req.url);
   next();
 });
+app.use(cookieParser())
 app.use("/",router);
 
 app.listen(3000, () => {

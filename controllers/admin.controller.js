@@ -1,20 +1,32 @@
 import { add_product, delete_manufacturer, delete_product, generateToken, verifyToken } from "../functions/functions.js";
 import deals from "../deals.json" with { type: "json" }
 import fs from "fs"
+import { database } from "../functions/db.js";
 
-export const login_controller = (req, res) => {
+const users = database.collection('users')
+const manufacturers = database.collection('manufacturers')
+const products_collection = database.collection('products')
+export const login_controller = async (req, res) => {
     try {
         const { username, password } = req.body;
-        let token;
-        if (username === "ajit29" && password === "Ajit@2929") {
-            token = generateToken({ username, password });
-            console.log(token);
+       
+        
+        const data = await users.findOne({ username, password })
+        
+        if (data) {
+            const token = generateToken({ username, password });
+            res.cookie("token", token, {
+                httpOnly: true,
+                secure: true,      // true if using HTTPS
+                maxAge: 24 * 60 * 60 * 1000
+            });
             return res.status(200).json({ token, username, email: username + "@gmail.com", message: "success" })
         }
         else {
             return res.status(400).json({ message: "incorrect credential" });
         }
-      } catch (error) {
+
+    } catch (error) {
         console.log("🔥 LOGIN ERROR:", error);
 
         return res.status(500).json({
@@ -24,45 +36,46 @@ export const login_controller = (req, res) => {
     }
 }
 
-export const get_products_controller = (req, res) => {
+export const get_products_controller = async (req, res) => {
     try {
-        const token = req.body?.token;
-        if (!token) res.status(400).json({ message: "token not found" })
-        const result = verifyToken(token);
-        if (!result) return res.status(400).json({ message: "incorrect token" })
-        const data = JSON.parse(fs.readFileSync("femaleBeautyProducts.json", "utf-8"));
-        return res.status(200).json(data)
+        const category = req.query?.category
+
+        if (category) {
+            const data = await products_collection.find({ category }).toArray();
+            return res.status(200).json({
+                status: true,
+                category: category,
+                products: data
+            })
+        }
+        const data = await products_collection.find().toArray();
+        return res.status(200).json({ success:true, category:"all", data:data })
     } catch (error) {
-        return res.status(400).json({ message: "Server Error" })
+        return res.status(400).json({ success:false, message:error.message })
     }
 
 }
 
-export const get_manufacturers_details = (req, res) => {
+export const get_manufacturers_details = async (req, res) => {
     try {
-        const token = req.body?.token;
-        if (!token) return res.status(400).json({ message: "token not found" })
-        const result = verifyToken(token);
-        if (!result) return res.status(400).json({ message: "incorrect token" })
-        const data = JSON.parse(fs.readFileSync("manufacturers.json", "utf-8"));
-        return res.status(200).json(data)
+        const data = await manufacturers.find().toArray()
+        return res.status(200).json({ success:true, data:data })
     } catch (error) {
-        return res.status(400).json({ message: "Server Error" })
+        console.log("error found", error.message)
+        return res.status(400).json({ success:false, message:error.message })
     }
 }
 
-export const delete_products_controller = (req, res) => {
+export const delete_products_controller = async (req, res) => {
     try {
 
-        const token = req.body?.token;
         let idToDelete = req.body?.item_id;
         if (!idToDelete) return res.status(400).json({ message: "no deleting item id is provided in body" })
-        if (!token) return res.status(401).json({ message: "token not found" })
-        const result = verifyToken(token);
-        if (!result) return res.status(403).json({ message: "incorrect token" })
-        delete_product(idToDelete);
+        const result = await products_collection.deleteOne({ id: idToDelete })
         // return res.status(200).json("delete success");
-        res.status(200).json({ success: true, message: "Delete success" });
+    
+        if(result.deletedCount === 0) return res.status(400).json({message:"the perticular id does not exists in database"})
+        return res.status(200).json({ success: true, message: "Delete success" });
 
     } catch (error) {
         // return res.status(500).json("server issue")
@@ -75,21 +88,11 @@ export const delete_products_controller = (req, res) => {
 export const delete_manufacturer_controller = (req, res) => {
     try {
 
-    console.log("👉 BODY:", req.body);
 
-        const token = req.body?.token;
         let idToDelete = req.body?.item_id;
-        console.log(token,idToDelete);
-        
+
         if (!idToDelete) {
             return res.status(400).json({ message: "no deleting item id is provided in body" })
-        }
-        if (!token) {
-            return res.status(400).json({ message: "token not found" })
-        }
-        const result = verifyToken(token);
-        if (!result) {
-            return res.status(400).json({ message: "incorrect token" })
         }
         delete_manufacturer(idToDelete);
         const data = JSON.parse(fs.readFileSync("manufacturers.json", "utf-8"));
@@ -97,7 +100,6 @@ export const delete_manufacturer_controller = (req, res) => {
 
     } catch (error) {
         console.log("error", error)
-        // return res.send("server issue")
         return res.status(500).json({
             success: false,
             message: "Server issue"
@@ -105,21 +107,22 @@ export const delete_manufacturer_controller = (req, res) => {
     }
 }
 
-export const add_product_controller = (req, res) => {
+export const add_product_controller = async (req, res) => {
     try {
-        const token = req.body?.token;
         const product = req.body?.product;
-        if (!product || Array.isArray(product) || typeof product !== "object") return res.status(400).json({ message: "adding product type must be an object" })
-        if (!token) return res.status(400).json({ message: "token not found" })
-        const result = verifyToken(token);
-        if (!result) return res.status(400).json({ message: "incorrect token" })
-        add_product(product, res);
-        const data = JSON.parse(fs.readFileSync("femaleBeautyProducts.json", "utf-8"))
-        return res.status(200).json(data);
+        if (!product || typeof product !== "object" || Array.isArray(product)) return res.status(400).json({ message: "adding product type must be an object" })
+        await products_collection.insertOne(product)
+        return res.status(200).json({
+            success: true,
+            message: "insertion success"
+        });
 
     } catch (error) {
-        console.log("error", error);
-        return res.send("server issue")
+        console.log("error in add_product_controller ", error.message)
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        });
     }
 }
 

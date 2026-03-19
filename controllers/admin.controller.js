@@ -10,10 +10,10 @@ const deals_collection = database.collection('deals');
 export const login_controller = async (req, res) => {
     try {
         const { username, password } = req.body;
-       
-        
+
+
         const data = await users.findOne({ username, password })
-        
+
         if (data) {
             const token = generateToken({ username, password });
             res.cookie("token", token, {
@@ -50,9 +50,9 @@ export const get_products_controller = async (req, res) => {
             })
         }
         const data = await products_collection.find().toArray();
-        return res.status(200).json({ success:true, category:"all", data:data })
+        return res.status(200).json({ success: true, category: "all", data: data })
     } catch (error) {
-        return res.status(400).json({ success:false, message:error.message })
+        return res.status(400).json({ success: false, message: error.message })
     }
 
 }
@@ -60,10 +60,10 @@ export const get_products_controller = async (req, res) => {
 export const get_manufacturers_details = async (req, res) => {
     try {
         const data = await manufacturers.find().toArray()
-        return res.status(200).json({ success:true, data:data })
+        return res.status(200).json({ success: true, data: data })
     } catch (error) {
         console.log("error found", error.message)
-        return res.status(400).json({ success:false, message:error.message })
+        return res.status(400).json({ success: false, message: error.message })
     }
 }
 
@@ -74,8 +74,8 @@ export const delete_products_controller = async (req, res) => {
         if (!idToDelete) return res.status(400).json({ message: "no deleting item id is provided in body" })
         const result = await products_collection.deleteOne({ id: idToDelete })
         // return res.status(200).json("delete success");
-    
-        if(result.deletedCount === 0) return res.status(400).json({message:"the perticular id does not exists in database"})
+
+        if (result.deletedCount === 0) return res.status(400).json({ message: "the perticular id does not exists in database" })
         return res.status(200).json({ success: true, message: "Delete success" });
 
     } catch (error) {
@@ -86,7 +86,7 @@ export const delete_products_controller = async (req, res) => {
 
 
 
-export const delete_manufacturer_controller =async (req, res) => {
+export const delete_manufacturer_controller = async (req, res) => {
     try {
 
 
@@ -95,15 +95,15 @@ export const delete_manufacturer_controller =async (req, res) => {
         if (!idToDelete) {
             return res.status(400).json({ message: "no deleting item id is provided in body" })
         }
-        const result =  await manufacturers.deleteOne({id:idToDelete})
-        if(result.deletedCount ===0 ) return res.status(400).json({
-            success:false,
-            message:"the provided id does not exists in database"
+        const result = await manufacturers.deleteOne({ id: idToDelete })
+        if (result.deletedCount === 0) return res.status(400).json({
+            success: false,
+            message: "the provided id does not exists in database"
         })
-        return res.status(200).json({success:true, message:"deletion success"});
+        return res.status(200).json({ success: true, message: "deletion success" });
 
     } catch (error) {
-       
+
         return res.status(500).json({
             success: false,
             message: error.message
@@ -130,18 +130,60 @@ export const add_product_controller = async (req, res) => {
     }
 }
 
-export const get_deals_controller = async(req, res) => {
+export const get_deals_controller = async (req, res) => {
     try {
         const data = await deals_collection.find().toArray();
         return res.status(200).json({
-            success:true,
+            success: true,
             data
         })
     } catch (error) {
         console.log("error in get-deals controller", error)
         return res.status(400).json({
-            success:false,
-            message:error.message
+            success: false,
+            message: error.message
+        })
+    }
+}
+
+export const add_deals_controller = async (req, res) => {
+    try {
+        const { deal } = req.body;
+        if (!product || typeof product !== "object" || Array.isArray(product)) return res.status(400).json({ message: "adding deal type must be an object" })
+
+        await deals_collection.insertOne(deal)
+        return res.status(200).json({
+            success: true,
+        })
+    } catch (error) {
+        console.log("error in add-deals controller", error)
+        return res.status(400).json({
+            success: false,
+            message: error.message
+        })
+    }
+}
+
+export const delete_deal_controller = async (req, res) => {
+    try {
+        const { idToDelete } = req.body;
+
+        const result = await deals_collection.deleteOne({id:idToDelete})
+
+        if(result.deletedCount === 0) return res.status(400).json({
+            success: false,
+            message:"provided id does not exists in database"
+        })
+
+        return res.status(200).json({
+            success: true,
+            message:"deletion success"
+        })
+    } catch (error) {
+        console.log("error in add-deals controller", error)
+        return res.status(400).json({
+            success: false,
+            message: error.message
         })
     }
 }

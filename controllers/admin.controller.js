@@ -4,8 +4,9 @@ import { database } from "../functions/db.js";
 
 const users = database.collection('users')
 const manufacturers = database.collection('manufacturers')
-const products_collection = database.collection('products');
-const deals_collection = database.collection('deals');
+const products_collection = database.collection('products')
+const deals_collection = database.collection('deals')
+const reports_collection = database.collection('reports')
 
 export const login_controller = async (req, res) => {
     try {
@@ -189,3 +190,121 @@ export const delete_deal_controller = async (req, res) => {
         })
     }
 }
+
+// ! new api creat for add reports 
+
+
+export const get_reports_controller = async (req, res) => {
+    try {
+        const data = await reports_collection.find().toArray();
+
+        return res.status(200).json({
+            success: true,
+            data: data
+        });
+
+    } catch (error) {
+        console.log("error in get_reports_controller:", error.message);
+
+        return res.status(400).json({
+            success: false,
+            message: error.message
+        });
+    }
+};
+
+export const add_report = async (req, res) => {
+    try {
+        const report = req.body?.report; // 👈 same old structure
+
+        // ❌ validation
+        if (!report || typeof report !== "object" || Array.isArray(report)) {
+            return res.status(400).json({
+                success: false,
+                message: "report must be an object"
+            });
+        }
+
+        // ❌ reportId required
+        if (!report.reportId) {
+            return res.status(400).json({
+                success: false,
+                message: "reportId is required"
+            });
+        }
+
+        // ❌ unique reportId check
+        const existing = await reports_collection.findOne({
+            reportId: report.reportId
+        });
+
+        if (existing) {
+            return res.status(400).json({
+                success: false,
+                message: "Report ID already exists"
+            });
+        }
+
+        // ✅ insert
+        await reports_collection.insertOne(report);
+
+        return res.status(200).json({
+            success: true,
+            message: "Report inserted successfully"
+        });
+
+    } catch (error) {
+        console.log("error in add_report:", error.message);
+
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+};
+
+
+
+
+export const delete_report_controller = async (req, res) => {
+    try {
+        const id = req.params?.id;
+
+        // 🔍 validation
+        if (!id) {
+            return res.status(400).json({
+                success: false,
+                message: "Report id is required"
+            });
+        }
+
+        // ⚠️ MongoDB ObjectId convert karna padega
+        const { ObjectId } = await import("mongodb");
+
+        const result = await reports_collection.deleteOne({
+            _id: new ObjectId(id)
+        });
+
+        // ❌ agar delete nahi hua
+        if (result.deletedCount === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "Report not found"
+            });
+        }
+
+        // ✅ success
+        return res.status(200).json({
+            success: true,
+            message: "Report deleted successfully"
+        });
+
+    } catch (error) {
+        console.log("error in delete_report_controller:", error.message);
+
+        return res.status(400).json({
+            success: false,
+            message: error.message
+        });
+    }
+};

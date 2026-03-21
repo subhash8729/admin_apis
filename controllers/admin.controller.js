@@ -318,7 +318,7 @@ export const update_report = async (req, res) => {
         if (edits.status) updated_edits.status = edits.status
         if (edits.priority) updated_edits.priority = edits.priority
         if (edits.assing_to) updated_edits.assing_to = edits.assing_to
-        if (edits.internal_notes) updated_edits.internal_notes = edits.internal_notes
+        if (edits.description) updated_edits.description = edits.description
         if(Object.keys(updated_edits).length <=1) return res.status(400).json({
             success:false,
             message:"atleast one update is required"

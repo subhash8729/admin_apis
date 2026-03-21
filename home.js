@@ -9,6 +9,24 @@ const stringHTML = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin APIs</title>
+
+<meta name="description" content="Admin APIs dashboard with endpoints, fast access and clean UI">
+
+
+<meta property="og:title" content="Admin APIs">
+<meta property="og:description" content="Clean dashboard for managing and accessing admin APIs">
+<meta property="og:image" content="https://dooey.org/wp-content/uploads/2021/01/Kubernetes-Administrator-Course.png">
+<meta property="og:url" content="https://yourdomain.com">
+<meta property="og:type" content="website">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Admin APIs">
+<meta name="twitter:description" content="Clean dashboard for managing admin APIs">
+<meta name="twitter:image" content="https://dooey.org/wp-content/uploads/2021/01/Kubernetes-Administrator-Course.png">
+
+
+<meta name="theme-color" content="#0f172a">
+<link rel="icon" href="https://dooey.org/wp-content/uploads/2021/01/Kubernetes-Administrator-Course.png">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Inter}

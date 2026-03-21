@@ -323,7 +323,7 @@ export const update_report = async (req, res) => {
             success:false,
             message:"atleast one update is required"
         })
-        console.log("updated_edits is",updated_edits)
+
         const result = await reports_collection.findOneAndUpdate(
             { reportId: edits.reportId },
             {

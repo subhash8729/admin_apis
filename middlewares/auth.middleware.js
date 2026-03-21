@@ -2,6 +2,8 @@ import jwt from "jsonwebtoken"
 export const verifyJWT = (req ,res ,next) => {
     try {
         const {token} = req.cookies;// cookies me se data liya
+        console.log("The cookies are", req.cookies);
+        console.log("JWT secret is",process.env.JWT_SECRET);
         jwt.verify(token, process.env.JWT_SECRET) //verification
         next();
     } catch (error) {

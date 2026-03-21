@@ -20,7 +20,7 @@ export const login_controller = async (req, res) => {
             res.cookie("token", token, {
                 httpOnly: true,
                 sameSite: "none",
-                secure:true,
+                secure: true,
                 maxAge: 24 * 60 * 60 * 1000,
             });
             return res.status(200).json({ token, username, email: username + "@gmail.com", message: "success" })
@@ -156,7 +156,7 @@ export const add_deals_controller = async (req, res) => {
         await deals_collection.insertOne(deal)
         return res.status(200).json({
             success: true,
-            message:"Insertion success"
+            message: "Insertion success"
         })
     } catch (error) {
         console.log("error in add-deals controller", error)
@@ -171,16 +171,16 @@ export const delete_deal_controller = async (req, res) => {
     try {
         const { id } = req.body;
 
-        const result = await deals_collection.deleteOne({id})
+        const result = await deals_collection.deleteOne({ id })
 
-        if(result.deletedCount === 0) return res.status(400).json({
+        if (result.deletedCount === 0) return res.status(400).json({
             success: false,
-            message:"provided id does not exists in database"
+            message: "provided id does not exists in database"
         })
 
         return res.status(200).json({
             success: true,
-            message:"deletion success"
+            message: "deletion success"
         })
     } catch (error) {
         console.log("error in add-deals controller", error)
@@ -307,4 +307,39 @@ export const delete_report_controller = async (req, res) => {
             message: error.message
         });
     }
-};
+}
+export const update_report = async (req, res) => {
+    try {
+        const { edits } = req.body;
+
+        const updated_edits = {};
+        if (!edits?.reportId) return res.status(400).json({ success: false, message: "you must include key reportId in edits object" })
+        
+        if (edits.status) updated_edits.status = edits.status
+        if (edits.priority) updated_edits.priority = edits.priority
+        if (edits.assing_to) updated_edits.assing_to = edits.assing_to
+        if (edits.internal_notes) updated_edits.internal_notes = edits.internal_notes
+        if(Object.keys(updated_edits).length <=1) return res.status(400).json({
+            success:false,
+            message:"atleast one update is required"
+        })
+        console.log("updated_edits is",updated_edits)
+        const result = await reports_collection.findOneAndUpdate(
+            { reportId: edits.reportId },
+            {
+                $set: updated_edits
+            },
+            { new: true }
+
+        );
+        return res.status(200).json({
+            success: true,
+            updateReport: result
+        })
+    } catch (error) {
+        return res.status(400).json({
+            success: false,
+            message: error.message
+        })
+    }
+}

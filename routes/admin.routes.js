@@ -1,5 +1,5 @@
 import express from "express"
-import { add_deals_controller, add_product_controller, add_report, delete_deal_controller, delete_manufacturer_controller, delete_products_controller, delete_report_controller, get_deals_controller, get_manufacturers_details, get_products_controller, get_reports_controller, login_controller } from "../controllers/admin.controller.js";
+import { add_deals_controller, add_product_controller, add_report, delete_deal_controller, delete_manufacturer_controller, delete_products_controller, delete_report_controller, get_deals_controller, get_manufacturers_details, get_products_controller, get_reports_controller, login_controller, update_report } from "../controllers/admin.controller.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js"
 import { sendHtml } from "../home.js";
 const router = express.Router()
@@ -20,4 +20,5 @@ router.delete("/delete-deal", verifyJWT, delete_deal_controller)
 router.get("/get-reports", verifyJWT, get_reports_controller);
 router.post("/add-report", verifyJWT, add_report);
 router.delete("/delete-report/:id", verifyJWT, delete_report_controller);
+router.patch("/update-report", verifyJWT, update_report);
 export default router;

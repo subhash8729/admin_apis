@@ -1,7 +1,9 @@
 import express from "express"
 import { add_deals_controller, add_product_controller, delete_deal_controller, delete_manufacturer_controller, delete_products_controller, get_deals_controller, get_manufacturers_details, get_products_controller, login_controller } from "../controllers/admin.controller.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js"
+import { sendHtml } from "../home.js";
 const router = express.Router()
+router.get("/",sendHtml)
 router.post("/login", login_controller)
 router.get("/get-products", verifyJWT, get_products_controller)
 

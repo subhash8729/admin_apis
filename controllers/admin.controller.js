@@ -18,8 +18,8 @@ export const login_controller = async (req, res) => {
             const token = generateToken({ username, password });
             res.cookie("token", token, {
                 httpOnly: true,
-                secure: "none",      // true if using HTTPS
-                maxAge: 24 * 60 * 60 * 1000
+                sameSite: "none",
+                maxAge: 24 * 60 * 60 * 1000,
             });
             return res.status(200).json({ token, username, email: username + "@gmail.com", message: "success" })
         }

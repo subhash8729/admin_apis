@@ -221,7 +221,9 @@ export const add_report = async (req, res) => {
         if (!report || typeof report !== "object" || Array.isArray(report)) {
             return res.status(400).json({
                 success: false,
-                message: "report must be an object"
+                message: "report must be an object",
+                currentType:typeof(report),
+                yourReport:report
             });
         }
 
@@ -244,7 +246,7 @@ export const add_report = async (req, res) => {
                 message: "Report ID already exists"
             });
         }
-
+        report.created_at = new Date();
         // ✅ insert
         await reports_collection.insertOne(report);
 

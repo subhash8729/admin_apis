@@ -191,7 +191,6 @@ export const delete_deal_controller = async (req, res) => {
     }
 }
 
-// ! new api creat for add reports 
 
 
 export const get_reports_controller = async (req, res) => {
@@ -215,9 +214,7 @@ export const get_reports_controller = async (req, res) => {
 
 export const add_report = async (req, res) => {
     try {
-        const report = req.body?.report; // 👈 same old structure
-
-        // ❌ validation
+        const report = req.body?.report; 
         if (!report || typeof report !== "object" || Array.isArray(report)) {
             return res.status(400).json({
                 success: false,
@@ -226,17 +223,13 @@ export const add_report = async (req, res) => {
                 yourReport:report
             });
         }
-
-        // ❌ reportId required
-        if (!report.reportId) {
+if (!report.reportId) {
             return res.status(400).json({
                 success: false,
                 message: "reportId is required"
             });
         }
-
-        // ❌ unique reportId check
-        const existing = await reports_collection.findOne({
+ const existing = await reports_collection.findOne({
             reportId: report.reportId
         });
 
@@ -247,8 +240,7 @@ export const add_report = async (req, res) => {
             });
         }
         report.created_at = new Date();
-        // ✅ insert
-        await reports_collection.insertOne(report);
+       await reports_collection.insertOne(report);
 
         return res.status(200).json({
             success: true,
@@ -271,32 +263,24 @@ export const add_report = async (req, res) => {
 export const delete_report_controller = async (req, res) => {
     try {
         const id = req.params?.id;
-
-        // 🔍 validation
-        if (!id) {
+ if (!id) {
             return res.status(400).json({
                 success: false,
                 message: "Report id is required"
             });
         }
-
-        // ⚠️ MongoDB ObjectId convert karna padega
-        const { ObjectId } = await import("mongodb");
+const { ObjectId } = await import("mongodb");
 
         const result = await reports_collection.deleteOne({
             _id: new ObjectId(id)
         });
-
-        // ❌ agar delete nahi hua
-        if (result.deletedCount === 0) {
+  if (result.deletedCount === 0) {
             return res.status(404).json({
                 success: false,
                 message: "Report not found"
             });
         }
-
-        // ✅ success
-        return res.status(200).json({
+ return res.status(200).json({
             success: true,
             message: "Report deleted successfully"
         });

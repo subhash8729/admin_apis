@@ -14,6 +14,7 @@ app.use((req, res, next) => {
 app.use(cors({
   origin: [
     "http://localhost:5173",
+    "http://192.168.43.143:5173",
     "https://admin-dashboard-rose-tau-43.vercel.app"
   ],
   credentials: true

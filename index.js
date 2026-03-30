@@ -12,7 +12,10 @@ app.use((req, res, next) => {
   next();
 });
 app.use(cors({
-  origin: "https://admin-dashboard-rose-tau-43.vercel.app",
+  origin: [
+    "http://localhost:5173",
+    "https://admin-dashboard-rose-tau-43.vercel.app"
+  ],
   credentials: true
 }));
 
